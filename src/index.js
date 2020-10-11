@@ -1,26 +1,20 @@
 // index.js
 import React from "react";
 import ReactDOM from "react-dom";
-import shamsImage from "./images/beach.png";
+import image from "./images/beach.png";
 
 const welcome = "Welcome to 30 Days Of React";
 const title = "Getting Started React";
 const subtitle = "JavaScript Library";
 const author = {
-  firstName: "Shams",
+  firstName: "Joe",
   lastName: "C",
 };
 const date = "Oct 2, 2020";
-const headerStyles = {
-  backgroundColor: "#61DBFB",
-  fontFamily: "Helvetica Neue",
-  padding: 25,
-  lineHeight: 1.5,
-};
 
 // JSX element, header
 const header = (
-  <header style={headerStyles}>
+  <header>
     <div className="header-wrapper">
       <h1>{welcome}</h1>
       <h2>{title}</h2>
@@ -58,16 +52,12 @@ const techsFormatted = techs.map((tech) => <li>{tech}</li>);
 
 const user = (
   <div>
-    <img src={shamsImage} alt="beach" height="200px" width="200px" />
+    <img src={image} alt="beach" height="200px" width="200px" />
   </div>
 );
 
-// JSX element, main
-const mainStyles = {
-  backgroundColor: "#F3F0F5",
-};
 const main = (
-  <main style={mainStyles}>
+  <main>
     <div className="main-wrapper">
       <p>
         Prerequisite to get started
@@ -85,12 +75,10 @@ const main = (
 );
 
 const copyRight = "Copyright 2020";
-const footerStyles = {
-  backgroundColor: "#61DBFB",
-};
+
 // JSX element, footer
 const footer = (
-  <footer style={footerStyles}>
+  <footer>
     <div className="footer-wrapper">
       <p>{copyRight}</p>
     </div>
