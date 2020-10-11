@@ -1,6 +1,7 @@
 // index.js
 import React from "react";
 import ReactDOM from "react-dom";
+import shamsImage from "./images/beach.png";
 
 const welcome = "Welcome to 30 Days Of React";
 const title = "Getting Started React";
@@ -55,6 +56,12 @@ const personAge = (
 const techs = ["HTML", "CSS", "JavaScript"];
 const techsFormatted = techs.map((tech) => <li>{tech}</li>);
 
+const user = (
+  <div>
+    <img src={shamsImage} alt="beach" height="200px" width="200px" />
+  </div>
+);
+
 // JSX element, main
 const mainStyles = {
   backgroundColor: "#F3F0F5",
@@ -72,6 +79,7 @@ const main = (
       <ul>{techsFormatted}</ul>
       {result}
       {personAge}
+      {user}
     </div>
   </main>
 );
