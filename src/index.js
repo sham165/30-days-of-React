@@ -12,32 +12,45 @@ const author = {
 };
 // const date = "Oct 2, 2020";
 
+const showDate = (time) => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const month = months[time.getMonth()].slice(0, 3);
+  const year = time.getFullYear();
+  const date = time.getDate();
+  return ` ${month} ${date}, ${year}`;
+};
+
 // JSX element, header
 const Header = (props) => {
   console.log(props);
   return (
     <header>
       <div className="header-wrapper">
-        <h1>{props.welcome}</h1>
-        <h2>{props.title}</h2>
-        <h3>{props.subtitle}</h3>
+        <h1>{props.data.welcome}</h1>
+        <h2>{props.data.title}</h2>
+        <h3>{props.data.subtitle}</h3>
         <p>
-          Student: {props.firstName} {props.lastName}
+          Student: {props.data.author.firstName} {props.data.author.lastName}
         </p>
-        <small>Date: {props.date}</small>
+        <small>Date: {showDate(props.data.date)}</small>
       </div>
     </header>
   );
 };
-
-// const numOne = 1;
-// const numTwo = 2;
-
-// const result = (
-//   <p>
-//     {numOne} + {numTwo} = {numOne + numTwo}
-//   </p>
-// );
 
 const yearBorn = 1995;
 const currentYear = new Date().getFullYear();
@@ -64,6 +77,7 @@ const UserCard = () => (
     </h2>
   </div>
 );
+
 const buttoneStyles = {
   padding: "10px 20px",
   background: "rgb(0, 255, 0",
@@ -130,21 +144,22 @@ const Footer = () => (
 );
 
 // JSX element, app
-const App = () => (
-  <div className="app">
-    <Header
-      welcome="Welcome to 30 Days Of React"
-      title="Getting Started React"
-      subtitle="JavaScript Library"
-      firstName="Shams"
-      lastName="C"
-      date="Oct 4, 2020"
-    />
-    <Main />
-    <Footer />
-  </div>
-);
-
+const App = () => {
+  const data = {
+    welcome: "Welcome to 30 Days Of React",
+    title: "Getting Started React",
+    subtitle: "JavaScript Library",
+    author: { firstName: "Shams", lastName: "C" },
+    date: new Date(),
+  };
+  return (
+    <div className="app">
+      <Header data={data} />
+      <Main />
+      <Footer />
+    </div>
+  );
+};
 const rootElement = document.getElementById("root");
 // we render the JSX element using the ReactDOM package
 ReactDOM.render(<App />, rootElement);
