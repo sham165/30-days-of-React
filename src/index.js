@@ -7,7 +7,7 @@ const welcome = "Welcome to 30 Days Of React";
 const title = "Getting Started React";
 const subtitle = "JavaScript Library";
 const author = {
-  firstName: "Joe",
+  firstName: "Shams",
   lastName: "C",
 };
 const date = "Oct 2, 2020";
