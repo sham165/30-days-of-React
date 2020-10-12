@@ -3,29 +3,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 import image from "./images/beach.png";
 
-const welcome = "Welcome to 30 Days Of React";
-const title = "Getting Started React";
-const subtitle = "JavaScript Library";
+// const welcome = "Welcome to 30 Days Of React";
+// const title = "Getting Started React";
+// const subtitle = "JavaScript Library";
 const author = {
   firstName: "Shams",
   lastName: "C",
 };
-const date = "Oct 2, 2020";
+// const date = "Oct 2, 2020";
 
 // JSX element, header
-const Header = () => (
-  <header>
-    <div className="header-wrapper">
-      <h1>{welcome}</h1>
-      <h2>{title}</h2>
-      <h3>{subtitle}</h3>
-      <p>
-        Student: {author.firstName} {author.lastName}
-      </p>
-      <small>Date: {date}</small>
-    </div>
-  </header>
-);
+const Header = (props) => {
+  console.log(props);
+  return (
+    <header>
+      <div className="header-wrapper">
+        <h1>{props.welcome}</h1>
+        <h2>{props.title}</h2>
+        <h3>{props.subtitle}</h3>
+        <p>
+          Student: {props.firstName} {props.lastName}
+        </p>
+        <small>Date: {props.date}</small>
+      </div>
+    </header>
+  );
+};
 
 const numOne = 1;
 const numTwo = 2;
@@ -129,7 +132,14 @@ const Footer = () => (
 // JSX element, app
 const App = () => (
   <div className="app">
-    <Header />
+    <Header
+      welcome="Welcome to 30 Days Of React"
+      title="Getting Started React"
+      subtitle="JavaScript Library"
+      firstName="Shams"
+      lastName="C"
+      date="Oct 4, 2020"
+    />
     <Main />
     <Footer />
   </div>
