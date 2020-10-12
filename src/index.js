@@ -13,7 +13,7 @@ const author = {
 const date = "Oct 2, 2020";
 
 // JSX element, header
-const header = (
+const Header = () => (
   <header>
     <div className="header-wrapper">
       <h1>{welcome}</h1>
@@ -47,16 +47,20 @@ const personAge = (
 );
 
 // JSX element, main
-const techs = ["HTML", "CSS", "JavaScript"];
-const techsFormatted = techs.map((tech) => <li>{tech}</li>);
+const TechList = () => {
+  const techs = ["HTML", "CSS", "JavaScript"];
+  const techsFormatted = techs.map((tech) => <li>{tech}</li>);
+  return techsFormatted;
+};
 
-const user = (
-  <div>
+const UserCard = () => (
+  <div className="user-card">
     <img src={image} alt="beach" height="200px" width="200px" />
+    <h2>Shams C</h2>
   </div>
 );
 
-const main = (
+const Main = () => (
   <main>
     <div className="main-wrapper">
       <p>
@@ -66,10 +70,12 @@ const main = (
         </strong>
         :
       </p>
-      <ul>{techsFormatted}</ul>
+      <ul>
+        <TechList />
+      </ul>
       {result}
       {personAge}
-      {user}
+      <UserCard />
     </div>
   </main>
 );
@@ -77,7 +83,7 @@ const main = (
 const copyRight = "Copyright 2020";
 
 // JSX element, footer
-const footer = (
+const Footer = () => (
   <footer>
     <div className="footer-wrapper">
       <p>{copyRight}</p>
@@ -86,14 +92,14 @@ const footer = (
 );
 
 // JSX element, app
-const app = (
+const App = () => (
   <div className="app">
-    {header}
-    {main}
-    {footer}
+    <Header />
+    <Main />
+    <Footer />
   </div>
 );
 
 const rootElement = document.getElementById("root");
 // we render the JSX element using the ReactDOM package
-ReactDOM.render(app, rootElement);
+ReactDOM.render(<App />, rootElement);
