@@ -30,14 +30,14 @@ const Header = (props) => {
   );
 };
 
-const numOne = 1;
-const numTwo = 2;
+// const numOne = 1;
+// const numTwo = 2;
 
-const result = (
-  <p>
-    {numOne} + {numTwo} = {numOne + numTwo}
-  </p>
-);
+// const result = (
+//   <p>
+//     {numOne} + {numTwo} = {numOne + numTwo}
+//   </p>
+// );
 
 const yearBorn = 1995;
 const currentYear = new Date().getFullYear();
@@ -50,9 +50,9 @@ const personAge = (
 );
 
 // JSX element, main
-const TechList = () => {
-  const techs = ["HTML", "CSS", "JavaScript"];
-  const techsFormatted = techs.map((tech) => <li>{tech}</li>);
+const TechList = (props) => {
+  // const techs = ["HTML", "CSS", "JavaScript"];
+  const techsFormatted = props.techs.map((tech) => <li>{tech}</li>);
   return techsFormatted;
 };
 
@@ -94,9 +94,9 @@ const Main = () => (
         :
       </p>
       <ul>
-        <TechList />
+        <TechList techs={["HTML", "CSS", "JavaScript"]} />
       </ul>
-      {result}
+      {/* {result} */}
       {personAge}
       <UserCard />
       <Button />
