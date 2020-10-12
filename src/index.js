@@ -42,7 +42,7 @@ const age = currentYear - yearBorn;
 const personAge = (
   <p>
     {" "}
-    {author.firstName} {author.lastName} is {age} years old
+    {author.firstName} is {age} years old
   </p>
 );
 
@@ -56,9 +56,29 @@ const TechList = () => {
 const UserCard = () => (
   <div className="user-card">
     <img src={image} alt="beach" height="200px" width="200px" />
-    <h2>Shams C</h2>
+    <h2>
+      {author.firstName} {author.lastName}
+    </h2>
   </div>
 );
+const buttoneStyles = {
+  padding: "10px 20px",
+  background: "rgb(0, 255, 0",
+  border: "none",
+  borderRadius: 5,
+};
+
+const Button = () => <button style={buttoneStyles}> action </button>;
+
+const HexaColor = () => {
+  let str = "0123456788abcdef";
+  let color = "";
+  for (let i = 0; i < 6; i++) {
+    let index = Math.floor(Math.random() * str.length);
+    color += str[index];
+  }
+  return "#" + color;
+};
 
 const Main = () => (
   <main>
@@ -76,6 +96,21 @@ const Main = () => (
       {result}
       {personAge}
       <UserCard />
+      <Button />
+      <strong>
+        <p>
+          <HexaColor />
+        </p>
+        <p>
+          <HexaColor />
+        </p>
+        <p>
+          <HexaColor />
+        </p>
+        <p>
+          <HexaColor />
+        </p>
+      </strong>
     </div>
   </main>
 );
