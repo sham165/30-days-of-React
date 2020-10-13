@@ -31,15 +31,15 @@ const showDate = (time) => {
 };
 
 // JSX element, header
-const Header = (props) => {
-  const data = props.data;
-  const {
+const Header = ({
+  data: {
     welcome,
     title,
     subtitle,
     author: { firstName, lastName },
     date,
-  } = data;
+  },
+}) => {
   return (
     <header>
       <div className="header-wrapper">
@@ -47,9 +47,9 @@ const Header = (props) => {
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
         <p>
-          Student: {author.firstName} {author.lastName}
+          Student: {firstName} {lastName}
         </p>
-        <small>Date: {showDate(data.date)}</small>
+        <small>Date: {showDate(date)}</small>
       </div>
     </header>
   );
