@@ -3,14 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import image from "./images/beach.png";
 
-// const welcome = "Welcome to 30 Days Of React";
-// const title = "Getting Started React";
-// const subtitle = "JavaScript Library";
 const author = {
   firstName: "Shams",
   lastName: "C",
 };
-// const date = "Oct 2, 2020";
 
 const showDate = (time) => {
   const months = [
@@ -78,14 +74,12 @@ const UserCard = () => (
   </div>
 );
 
-const buttoneStyles = {
-  padding: "10px 20px",
-  background: "rgb(0, 255, 0",
-  border: "none",
-  borderRadius: 5,
-};
-
-const Button = () => <button style={buttoneStyles}> action </button>;
+const Button = (props) => (
+  <button className="button-styles" onClick={props.onClick}>
+    {" "}
+    {props.text}{" "}
+  </button>
+);
 
 const HexaColor = () => {
   let str = "0123456788abcdef";
@@ -97,6 +91,13 @@ const HexaColor = () => {
   return "#" + color;
 };
 
+const greetPeople = () => {
+  alert("Welcome to 30 Days Of React Challenge, 2020");
+};
+
+const handletime = () => {
+  alert(showDate(new Date()));
+};
 const Main = () => (
   <main>
     <div className="main-wrapper">
@@ -113,7 +114,12 @@ const Main = () => (
       {/* {result} */}
       {personAge}
       <UserCard />
-      <Button />
+      <Button text="Show time" onClick={handletime} />
+      <br />
+      <Button text="Greet Plople" onClick={greetPeople} />
+      <br />
+      <Button text="Hi!" onClick={() => alert("Well, Hello")} />
+      <br />
       <strong>
         <p>
           <HexaColor />
@@ -132,13 +138,11 @@ const Main = () => (
   </main>
 );
 
-const copyRight = "Copyright 2020";
-
 // JSX element, footer
-const Footer = () => (
+const Footer = (props) => (
   <footer>
     <div className="footer-wrapper">
-      <p>{copyRight}</p>
+      <p>{props.data.copyRight}</p>
     </div>
   </footer>
 );
@@ -151,12 +155,13 @@ const App = () => {
     subtitle: "JavaScript Library",
     author: { firstName: "Shams", lastName: "C" },
     date: new Date(),
+    copyRight: "Copyright 2020",
   };
   return (
     <div className="app">
       <Header data={data} />
       <Main />
-      <Footer />
+      <Footer data={data} />
     </div>
   );
 };
