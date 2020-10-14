@@ -3,11 +3,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import image from "./images/beach.png";
 
-const author = {
-  firstName: "Shams",
-  lastName: "C",
-};
-
 const showDate = (time) => {
   const months = [
     "January",
@@ -47,47 +42,56 @@ const Header = ({
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
         <p>
-          Student: {firstName} {lastName}
+          {firstName} {lastName}
         </p>
-        <small>Date: {showDate(date)}</small>
+        <small>{showDate(date)}</small>
       </div>
     </header>
   );
 };
 
-const yearBorn = 1995;
-const currentYear = new Date().getFullYear();
-const age = currentYear - yearBorn;
-const personAge = (
-  <p>
-    {" "}
-    {author.firstName} is {age} years old
-  </p>
-);
-
-// JSX element, main
-const TechList = (props) => {
-  // const techs = ["HTML", "CSS", "JavaScript"];
-  const techsFormatted = props.techs.map((tech) => <li>{tech}</li>);
-  return techsFormatted;
+const PersonAge = ({ yearBorn }) => {
+  const currentYear = new Date().getFullYear();
+  const age = currentYear - yearBorn;
+  return <p> I am {age} years old</p>;
 };
 
-const UserCard = () => (
+// TechList Component
+const TechList = ({ techs }) => {
+  const techList = techs.map((tech) => <li key={tech}>{tech}</li>);
+  return techList;
+};
+
+// User Card Component
+const UserCard = ({ user: { firstName, lastName, image } }) => (
   <div className="user-card">
-    <img src={image} alt="beach" height="200px" width="200px" />
+    <img src={image} alt={firstName} height="200px" width="200px" />
     <h2>
-      {author.firstName} {author.lastName}
+      {firstName} {lastName}
     </h2>
   </div>
 );
 
-const Button = (props) => (
-  <button className="button-styles" onClick={props.onClick}>
-    {" "}
-    {props.text}{" "}
+// A button component
+const Button = ({ text, onClick, style }) => (
+  <button style={style} onClick={onClick}>
+    {text}
   </button>
 );
 
+// CSS styles in JavaScript Object
+const buttonStyle = {
+  backgroundColor: "#61dbfb",
+  padding: 10,
+  border: "none",
+  borderRadius: 5,
+  margin: 3,
+  cursor: "pointer",
+  fontSize: 18,
+  color: "white",
+};
+
+// HexaColor component
 const HexaColor = () => {
   let str = "0123456788abcdef";
   let color = "";
@@ -98,14 +102,8 @@ const HexaColor = () => {
   return "#" + color;
 };
 
-const greetPeople = () => {
-  alert("Welcome to 30 Days Of React Challenge, 2020");
-};
-
-const handletime = () => {
-  alert(showDate(new Date()));
-};
-const Main = () => (
+// main component
+const Main = ({ user, techs, greetPeople, handleTime, yearBorn }) => (
   <main>
     <div className="main-wrapper">
       <p>
@@ -116,28 +114,21 @@ const Main = () => (
         :
       </p>
       <ul>
-        <TechList techs={["HTML", "CSS", "JavaScript"]} />
+        <TechList techs={techs} />
       </ul>
-      {/* {result} */}
-      {personAge}
-      <UserCard />
-      <Button text="Show time" onClick={handletime} />
-      <br />
-      <Button text="Greet Plople" onClick={greetPeople} />
-      <br />
-      <Button text="Hi!" onClick={() => alert("Well, Hello")} />
-      <br />
+      <UserCard user={user} />
+      <PersonAge yearBorn={yearBorn} />
+
+      <Button text="Show Time" onClick={handleTime} style={buttonStyle} />
+      <Button text="Greet Plople" onClick={greetPeople} style={buttonStyle} />
+      <Button
+        text="Hi!"
+        onClick={() => alert("Well, Hello")}
+        style={buttonStyle}
+      />
       <strong>
         <p>
-          <HexaColor />
-        </p>
-        <p>
-          <HexaColor />
-        </p>
-        <p>
-          <HexaColor />
-        </p>
-        <p>
+          {" "}
           <HexaColor />
         </p>
       </strong>
@@ -145,30 +136,57 @@ const Main = () => (
   </main>
 );
 
-// JSX element, footer
-const Footer = (props) => (
+// footer component
+const Footer = (copyRight) => (
   <footer>
     <div className="footer-wrapper">
-      <p>{props.data.copyRight}</p>
+      <p>Copyright {copyRight.getFullYear}</p>
     </div>
   </footer>
 );
 
+// The App, or the parent or the container component
 // Functional Component
 const App = () => {
   const data = {
     welcome: "Welcome to 30 Days Of React",
     title: "Getting Started React",
     subtitle: "JavaScript Library",
-    author: { firstName: "Shams", lastName: "C" },
+    author: {
+      firstName: "Shams",
+      lastName: "C",
+    },
     date: new Date(),
-    copyRight: "Copyright 2020",
+    // copyRight: "Copyright 2020",
+  };
+
+  const yearBorn = 1995;
+
+  const date = new Date();
+
+  const techs = ["HTML", "CSS", "JavaScript"];
+
+  // copying the author from data object to user variable using spread operator
+  const user = { ...data.author, image: image };
+
+  const greetPeople = () => {
+    alert("Welcome to 30 Days Of React Challenge, 2020");
+  };
+
+  const handleTime = () => {
+    alert(showDate(new Date()));
   };
   return (
     <div className="app">
       <Header data={data} />
-      <Main />
-      <Footer data={data} />
+      <Main
+        user={user}
+        techs={techs}
+        handleTime={handleTime}
+        greetPeople={greetPeople}
+        yearBorn={yearBorn}
+      />
+      <Footer copyRight={date} />
     </div>
   );
 };
