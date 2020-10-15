@@ -1,23 +1,34 @@
-//index.js
+// index.js
 
 import React from "react";
 import ReactDOM from "react-dom";
 
-// class base component
+// class based component
 class Header extends React.Component {
   constructor(props) {
     super(props);
     // the code inside the constructor run before any other code
   }
   render() {
+    console.log(this.props.data);
+    const {
+      welcome,
+      title,
+      subtitle,
+      author: { firstName, lastName },
+      date,
+    } = this.props.data;
+
     return (
       <header>
         <div className="header-wrapper">
-          <h1>Welcome to 30 Days Of React</h1>
-          <h2>Getting Started React</h2>
-          <h3>JavaScript Library</h3>
-          <p>Asabeneh Yetayeh</p>
-          <small>Oct 7, 2020</small>
+          <h1>{welcome}</h1>
+          <h2>{title}</h2>
+          <h3>{subtitle}</h3>
+          <p>
+            {firstName} {lastName}
+          </p>
+          <small>{date}</small>
         </div>
       </header>
     );
@@ -31,7 +42,7 @@ class TechList extends React.Component {
     super(props);
   }
   render() {
-    const techs = ["HTML", "CSS", "JavaScript"];
+    const { techs } = this.props;
     const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>);
     return techsFormatted;
   }
@@ -49,7 +60,7 @@ class Main extends React.Component {
         <div className="main-wrapper">
           <p>Prerequisite to get started react.js:</p>
           <ul>
-            <TechList />
+            <TechList techs={this.props.techs} />
           </ul>
         </div>
       </main>
@@ -67,25 +78,32 @@ class Footer extends React.Component {
     return (
       <footer>
         <div className="footer-wrapper">
-          <p>Copyright 2020</p>
+          <p>Copyright {this.props.date.getFullYear()}</p>
         </div>
       </footer>
     );
   }
 }
 
-// The App, or the parent or the container component
-// Class Component
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
+    const data = {
+      welcome: "Welcome to 30 Days Of React",
+      title: "Getting Started React",
+      subtitle: "JavaScript Library",
+      author: {
+        firstName: "Asabeneh",
+        lastName: "Yetayeh",
+      },
+      date: "Oct 7, 2020",
+    };
+    const techs = ["HTML", "CSS", "JavaScript"];
+
     return (
       <div className="app">
-        <Header />
-        <Main />
-        <Footer />
+        <Header data={data} />
+        <Main techs={techs} />
+        <Footer date={new Date()} />
       </div>
     );
   }
