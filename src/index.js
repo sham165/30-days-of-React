@@ -177,7 +177,7 @@ class App extends React.Component {
     styles: {
       backgroundColor: "",
       color: "",
-      loggedIn: true,
+      loggedIn: false,
     },
   };
   showDate = (time) => {
@@ -251,7 +251,11 @@ class App extends React.Component {
         {this.state.backgroundColor}
         <Header data={data} />
         {status}
-        <Button text={text} style={buttonStyles} onClick={this.handleLogin} />
+        <Button
+          text={this.state.loggedIn ? "Logout" : "Login"}
+          style={buttonStyles}
+          onClick={this.handleLogin}
+        />
         <Main
           user={user}
           techs={techs}
