@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import asabenehImage from "./images/react_logo.png";
 
 // Fuction to show month date year
-
 const showDate = (time) => {
   const months = [
     "January",
@@ -178,6 +177,7 @@ class App extends React.Component {
     styles: {
       backgroundColor: "",
       color: "",
+      loggedIn: true,
     },
   };
   showDate = (time) => {
@@ -216,6 +216,11 @@ class App extends React.Component {
     alert("Welcome to 30 Days Of React Challenge, 2020");
   };
   changeBackground = () => {};
+  handleLogin = () => {
+    this.setState({
+      loggedIn: !this.state.loggedIn,
+    });
+  };
   render() {
     const data = {
       welcome: "Welcome to 30 Days Of React",
@@ -227,15 +232,26 @@ class App extends React.Component {
       },
       date: "Oct 7, 2020",
     };
+    let status;
+    let text;
     const techs = ["HTML", "CSS", "JavaScript"];
     const date = new Date();
     // copying the author from data object to user variable using spread operator
     const user = { ...data.author, image: asabenehImage };
 
+    if (this.state.loggedIn) {
+      status = <h3>You are logged In</h3>;
+      text = "Logout";
+    } else {
+      status = <h3>Please Login</h3>;
+      text = "Login";
+    }
     return (
       <div className="app">
         {this.state.backgroundColor}
         <Header data={data} />
+        {status}
+        <Button text={text} style={buttonStyles} onClick={this.handleLogin} />
         <Main
           user={user}
           techs={techs}
