@@ -3,66 +3,66 @@ import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import Footer from "./components/footer/Footer";
 import { countriesData } from "./data/countries";
-import reactImage from "./asset/images/react_logo.png";
+// import reactImage from "./asset/images/react_logo.png";
 import { showDate } from "./utils/display-date-and-time";
 
 class App extends React.Component {
   state = {
-    loggedIn: false,
-    techs: ["HTML", "CSS", "JS"],
-    message: "Click show time or Greet people to change me",
+    // loggedIn: false,
+    // techs: ["HTML", "CSS", "JS"],
+    // message: "Click show time or Greet people to change me",
     country: countriesData[0],
-    firstName: "",
-    message: "",
+    // firstName: "",
+    // message: "",
     key: "",
   };
-  handleLogin = () => {
-    this.setState({
-      loggedIn: !this.state.loggedIn,
-    });
-  };
+  // handleLogin = () => {
+  //   this.setState({
+  //     loggedIn: !this.state.loggedIn,
+  //   });
+  // };
   handleTime = () => {
     let message = showDate(new Date());
     this.setState({ message });
   };
-  greetPeople = () => {
-    let message = "Welcome to 30 Days Of React Challenge, 2020";
-    this.setState({ message });
-  };
-  handleClick = (e) => {
-    this.setState({
-      message: "Welcome to the world of events",
-    });
-  };
-  handleMouseMove = (e) => {
-    this.setState({
-      message: "mouse is moving",
-    });
-  };
-  handleChanges = (e) => {
-    this.setState({
-      firstName: e.target.value,
-      message: e.target.value,
-    });
-  };
-  handleKeyPress = (e) => {
-    this.setState({
-      message:
-        `${e.target.value} has been pressed and the keycode is` + e.charCode,
-    });
-  };
+  // greetPeople = () => {
+  //   let message = "Welcome to 30 Days Of React Challenge, 2020";
+  //   this.setState({ message });
+  // };
+  // handleClick = (e) => {
+  //   this.setState({
+  //     message: "Welcome to the world of events",
+  //   });
+  // };
+  // handleMouseMove = (e) => {
+  //   this.setState({
+  //     message: "mouse is moving",
+  //   });
+  // };
+  // handleChanges = (e) => {
+  //   this.setState({
+  //     firstName: e.target.value,
+  //     message: e.target.value,
+  //   });
+  // };
+  // handleKeyPress = (e) => {
+  //   this.setState({
+  //     message:
+  //       `${e.target.value} has been pressed and the keycode is` + e.charCode,
+  //   });
+  // };
 
-  handleBlur = (e) => {
-    this.setState({
-      message: "Input field has been blurred",
-    });
-  };
+  // handleBlur = (e) => {
+  //   this.setState({
+  //     message: "Input field has been blurred",
+  //   });
+  // };
 
-  handleCopy = (e) => {
-    this.state({
-      message: "Using 30 days of React for commercial purpose id not allowed",
-    });
-  };
+  // handleCopy = (e) => {
+  //   this.state({
+  //     message: "Using 30 days of React for commercial purpose id not allowed",
+  //   });
+  // };
 
   render() {
     const data = {
@@ -75,14 +75,14 @@ class App extends React.Component {
       },
       date: new Date(),
     };
-    const techs = ["HTML", "CSS", "JavaScript"];
-    const user = { ...data.author, image: reactImage };
+    // const techs = ["HTML", "CSS", "JavaScript"];
+    // const user = { ...data.author, image: reactImage };
 
     return (
       <div className="app">
         {this.state.backgroundColor}
         <Header data={data} />
-        <div>
+        {/* <div>
           <button onClick={this.handleClick}>Click Me</button>
           <button onMouseMove={this.handleMouseMove}>Move mouse on me</button>
           <p onCopy={this.handleCopy}>
@@ -111,16 +111,16 @@ class App extends React.Component {
               <input type="submit" value="Submit" />
             </div>
           </form>
-        </div>
+        </div> */}
         <Main
-          techs={techs}
+          // techs={techs}
           handleTime={this.handleTime}
-          greetPeople={this.greetPeople}
-          loggedIn={this.state.loggedIn}
-          handleLogin={this.handleLogin}
-          message={this.state.message}
+          // greetPeople={this.greetPeople}
+          // loggedIn={this.state.loggedIn}
+          // handleLogin={this.handleLogin}
+          // message={this.state.message}
           country={this.state.country}
-          user={user}
+          // user={user}
         />
         <Footer date={new Date()} />
       </div>
