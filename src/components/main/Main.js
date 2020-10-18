@@ -1,12 +1,11 @@
 import React from "react";
 import HexaColor from "../color/HexaColor";
 import TechList from "../techs/TechList";
-import Countries from "../country/Country";
+import Country from "../country/Country";
 import UserCard from "../user/UserCard";
 import PersonAge from "../user/UserAge";
 import Button from "../shared/Button";
 import { buttonStyle } from "../../styles/button-styles";
-import Country from "../country/Country";
 
 const Message = ({ message }) => (
   <div
@@ -39,7 +38,6 @@ class Main extends React.Component {
       greetPeople,
       handleTime,
       yearBorn,
-      countries,
       loggedIn,
       handleLogin,
       message,
@@ -71,10 +69,10 @@ class Main extends React.Component {
 
           <PersonAge yearBorn={yearBorn} />
 
-          <div>
+          {/* <div>
             <h3>Countries List</h3>
             <Countries countries={countries} />
-          </div>
+          </div> */}
 
           <div>
             <Button text="Show Time" onClick={handleTime} style={buttonStyle} />{" "}

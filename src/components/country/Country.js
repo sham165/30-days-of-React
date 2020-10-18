@@ -1,5 +1,4 @@
 import React from "react";
-
 const Country = ({
   country: { name, capital, flag, languages, population, currency },
 }) => {
