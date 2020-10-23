@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 
 const Country = ({
   country: { name, capital, flag, languages, population, currencies },
@@ -57,8 +58,8 @@ class App extends Component {
   fetchCountryData = async () => {
     const url = "https://restcountries.eu/rest/v2/all";
     try {
-      const response = await fetch(url);
-      const data = await response.json();
+      const response = await axios.get(url);
+      const data = await response.data;
       this.setState({
         data,
       });
@@ -73,10 +74,10 @@ class App extends Component {
         <h1>Fetching API using Fetch</h1>
         <h1>Calling Api</h1>
         <div>
-          {/* <p>There are {this.state.data.length} countries in the api</p> */}
+          <p>There are {this.state.data.length} countries in the api</p>
           <div className="countries-wrapper">
             {this.state.data.map((country) => (
-              <Country country={country} />
+              <Country key={country.name} country={country} />
             ))}
           </div>
         </div>
