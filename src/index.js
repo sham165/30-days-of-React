@@ -46,6 +46,19 @@ const Country = ({
   );
 };
 
+const Cat = ({ cat: { name, weight, origin, temperament } }) => {
+  return (
+    <div className="cats">
+      <div className="cats_detail">
+        <h3>Cat name: {name.toUpperCase} </h3>
+        <p>Origin: {origin} </p>
+        <p>Temperament are: {temperament}</p>
+        <p>Weight: {weight.matric} </p>{" "}
+      </div>
+    </div>
+  );
+};
+
 class App extends Component {
   state = {
     data: [],
@@ -56,7 +69,9 @@ class App extends Component {
   }
 
   fetchCountryData = async () => {
-    const url = "https://restcountries.eu/rest/v2/all";
+    // const url = "https://restcountries.eu/rest/v2/all"; //country url
+    const url = "https://api.thecatapi.com/v1/breeds"; //cat breeds
+
     try {
       const response = await axios.get(url);
       const data = await response.data;
@@ -73,11 +88,19 @@ class App extends Component {
       <div className="App">
         <h1>Fetching API using Fetch</h1>
         <h1>Calling Api</h1>
-        <div>
+        {/* <div>
           <p>There are {this.state.data.length} countries in the api</p>
           <div className="countries-wrapper">
             {this.state.data.map((country) => (
               <Country key={country.name} country={country} />
+            ))}
+          </div>
+        </div> */}
+        <div>
+          <p>There are {this.state.data.length} cats breed</p>
+          <div className="cats-wrapper">
+            {this.state.data.map((cat) => (
+              <Cat cat={cat} />
             ))}
           </div>
         </div>
