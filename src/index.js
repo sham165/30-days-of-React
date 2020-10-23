@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
 const Country = ({
-  country: { name, capital, flag, languages, population, currency },
+  country: { name, capital, flag, languages, population, currencies },
 }) => {
   const formatedCapital =
     capital.length > 0 ? (
@@ -13,8 +13,11 @@ const Country = ({
     ) : (
       ""
     );
-  const formatedLanguage = languages.length > 1 ? `Languages` : `Language`;
-  console.log(languages);
+  const formattedLanguage = languages.length > 1 ? `Languages` : `Language`;
+  const formattedCurrency = currencies.length > 1 ? `Currencies` : `Currency`;
+
+  //   console.log(languages);
+  //   console.log(currencies);
 
   return (
     <div className="country">
@@ -22,10 +25,10 @@ const Country = ({
         <img src={flag} alt={name} />
       </div>
       <h3 className="country_name">{name.toUpperCase()}</h3>
-      <div class="country_text">
+      <div className="country_text">
         <p>{formatedCapital}</p>
         <p>
-          <span>{formatedLanguage}: </span>
+          <span>{formattedLanguage}: </span>
           {languages.map((language) => language.name).join(", ")}
         </p>
         <p>
@@ -33,8 +36,9 @@ const Country = ({
           {population}
         </p>
         <p>
-          <span>Currency: </span>
-          {currency}
+          <span>{formattedCurrency}: </span>
+          {currencies.map((currency) => currency.name).join(", ")}{" "}
+          {currencies.map((currency) => currency.symbol).join(", ")}
         </p>{" "}
       </div>
     </div>
@@ -47,29 +51,29 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const url = "https://restcountries.eu/rest/v2/all";
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchCountryData();
   }
+
+  fetchCountryData = async () => {
+    const url = "https://restcountries.eu/rest/v2/all";
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      this.setState({
+        data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
     return (
       <div className="App">
-        <h1>React component life cycle</h1>
-        <h1> Calling Api</h1>
+        <h1>Fetching API using Fetch</h1>
+        <h1>Calling Api</h1>
         <div>
-          <p>There are {this.state.data.length} countries in the api</p>
+          {/* <p>There are {this.state.data.length} countries in the api</p> */}
           <div className="countries-wrapper">
             {this.state.data.map((country) => (
               <Country country={country} />
