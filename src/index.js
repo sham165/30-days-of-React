@@ -1,123 +1,85 @@
-import React, { Component, useState, useEffect } from "react";
-import ReactDOM, { findDOMNode } from "react-dom";
-import axios from "axios";
-
-// const Country = ({
-//   country: { name, capital, flag, languages, population, currencies },
-// }) => {
-//   const formatedCapital =
-//     capital.length > 0 ? (
-//       <>
-//         {" "}
-//         <span> Capital: </span> {capital}{" "}
-//       </>
-//     ) : (
-//       ""
-//     );
-//   const formattedLanguage = languages.length > 1 ? `Languages` : `Language`;
-//   const formattedCurrency = currencies.length > 1 ? `Currencies` : `Currency`;
-
-//   //   console.log(languages);
-//   //   console.log(currencies);
-
-//   return (
-//     <div className="country">
-//       <div className="country_flag">
-//         <img src={flag} alt={name} />
-//       </div>
-//       <h3 className="country_name">{name.toUpperCase()}</h3>
-//       <div className="country_text">
-//         <p>{formatedCapital}</p>
-//         <p>
-//           <span>{formattedLanguage}: </span>
-//           {languages.map((language) => language.name).join(", ")}
-//         </p>
-//         <p>
-//           <span>Population: </span>
-//           {population}
-//         </p>
-//         <p>
-//           <span>{formattedCurrency}: </span>
-//           {currencies.map((currency) => currency.name).join(", ")}{" "}
-//           {currencies.map((currency) => currency.symbol).join(", ")}
-//         </p>{" "}
-//       </div>
-//     </div>
-//   );
-// };
-
-const Cat = ({ cat: { name, weight, origin, temperament } }) => {
-  return (
-    <div className="cats">
-      <div className="cats_detail">
-        <h3>Cat name: {name.toUpperCase} </h3>
-        <p>Origin: {origin} </p>
-        <p>Temperaments are: {temperament}</p>
-        <p>Weight: {weight.matric} </p>{" "}
-      </div>
-    </div>
-  );
-};
+import React, { useState } from "react";
+import ReactDom from "react-dom";
 
 const App = (props) => {
-  //   state = {
-  //     data: [],
-  //   };
-  const [data, setData] = useState([]);
-
-  //   componentDidMount() {
-  // this.fetchCountryData();
-  //   }
-  useEffect(() => {
-    fetchCatData();
-  }, []);
-
-  //   fetchCountryData = async () => {
-  //     const url = "https://restcountries.eu/rest/v2/all"; //country url
-  //     try {
-  //       const response = await axios.get(url);
-  //       const data = await response.data;
-  //       this.setState({
-  //         data,
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  const fetchCatData = async () => {
-    const url = "https://api.thecatapi.com/v1/breeds"; //cat breeds
-    try {
-      const response = await axios.get(url);
-      const data = await response.data;
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    country: "",
+    title: "",
   };
+
+  const [formData, setData] = useState(initialState);
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...formData, [name]: value });
+  };
+
+  const onSubmit = (e) => {
+    /* 
+     e.preventDefault()
+      stops the default behavior of form element
+     specifically refreshing of page
+     */
+    e.preventDefault();
+
+    /*
+     the is the place where we connect backend api 
+     to send the data to the database
+     */
+    console.log(formData);
+  };
+
+  const { firstName, lastName, title, country } = formData;
 
   return (
     <div className="App">
-      <h1>Fetching API using Fetch</h1>
-      <h1>Calling Api</h1>
-      <div>
-        <p>There are {data.length} cats breed</p>
-        <div className="cats-wrapper">
-          {data.map((cat) => (
-            <Cat key={cat.name} cat={cat} />
-          ))}
+      <h3>Add Student</h3>
+
+      <form onSubmit={onSubmit}>
+        <div>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            placeHolder="First Name"
+            value={firstName}
+            onChange={onChange}
+          />
         </div>
-      </div>
-      {/* <div>
-          <p>There are {this.state.data.length} countries in the api</p>
-          <div className="countries-wrapper">
-            {this.state.data.map((country) => (
-              <Country key={country.name} country={country} />
-            ))}
-          </div>
-        </div> */}
+        <div>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="country"
+            placeholder="Country"
+            value={country}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={title}
+            onChange={onChange}
+          />
+        </div>
+        <button className="btn btn-success">Submit</button>
+      </form>
     </div>
   );
 };
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDom.render(<App />, rootElement);
