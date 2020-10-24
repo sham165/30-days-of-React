@@ -1,220 +1,293 @@
-// index.js
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import image from "./images/beach.png";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch,
+  Redirect,
+  //   Prompt,
+  //   withRouter,
+} from "react-router-dom";
 
-const showDate = (time) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+const Home = (props) => <h1>Welcome Home!</h1>;
+const About = (props) => <h1>About Us</h1>;
+const Contact = (props) => <h1>Contact Us</h1>;
 
-  const month = months[time.getMonth()].slice(0, 3);
-  const year = time.getFullYear();
-  const date = time.getDate();
-  return ` ${month} ${date}, ${year}`;
-};
-// JSX element, header
-const Header = ({
-  data: {
-    welcome,
-    title,
-    subtitle,
-    author: { firstName, lastName },
-    date,
+const challenges = [
+  {
+    name: "30 Days Of Python",
+    description:
+      "30 Days of Python challenge is a step by step guide to learn Python in 30 days.",
+    status: "completed",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "20 Nov 2019 - 20 Dec 2019",
+    slug: "pyhton",
+    url:
+      "https://github.com/https://https://github.com/Asabeneh/30-Days-Of-Python.com/Asabeneh/30-Days-Of-JavaScript/30-Days-Of-React",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
   },
-}) => {
-  return (
-    <header>
-      <div className="header-wrapper">
-        <h1>{welcome}</h1>
-        <h2>{title}</h2>
-        <h3>{subtitle}</h3>
-        <p>
-          {firstName} {lastName}
-        </p>
-        <small>{showDate(date)}</small>
-      </div>
-    </header>
-  );
-};
-const PersonAge = ({ yearBorn }) => {
-  const currentYear = new Date().getFullYear();
-  const age = currentYear - yearBorn;
-  return <p> I am {age} years old</p>;
-};
-// TechList Component
-const TechList = ({ techs }) => {
-  const techList = techs.map((tech) => <li key={tech}>{tech}</li>);
-  return techList;
-};
-// User Card Component
-const UserCard = ({ user: { firstName, lastName, image } }) => (
-  <div className="user-card">
-    <img src={image} alt={firstName} height="200px" width="200px" />
-    <h2>
-      {firstName} {lastName}
-    </h2>
+  {
+    name: "30 Days Of JavaScript",
+    description:
+      "30 Days of JavaScript challenge is a step by step guide to learn JavaScript in 30 days.",
+    status: "completed",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "1 Jan 2020 - 30 Jan 2020",
+    slug: "javascript",
+    url: "https://github.com/Asabeneh/30-Days-Of-JavaScript",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
+  },
+  {
+    name: "30 Days Of React",
+    description:
+      "30 Days of React challenge is a step by step guide to learn React in 30 days.",
+    status: "ongoing",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "1 Oct 2020- 30 Oct 2020",
+    slug: "react",
+    url: "https://github.com/Asabeneh/30-Days-Of-React",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
+  },
+  {
+    name: "30 HTML and CSS",
+    description:
+      "30 Days of HTML and CSS challenge is a step by step guide to learn HTML and CSS in 30 days.",
+
+    status: "coming",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "",
+    slug: "html-and-css",
+    url: "",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
+  },
+  {
+    name: "30 ReactNative",
+    description:
+      "30 Days of ReactNative challenge is a step by step guide to learn ReactNative in 30 days.",
+    status: "coming",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "",
+    slug: "reactnative",
+    url: "",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
+  },
+  {
+    name: "30 Data Analysis",
+    description:
+      "30 Days of Data Analysis challenge  is a step by step guide to learn about data, data visualization and data analysis in 30 days.",
+    status: "coming",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "",
+    slug: "data-analysis",
+    url: "",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
+  },
+  {
+    name: "30 Machine Learning",
+    description:
+      "30 Days of Machine learning challenge  is a step by step guide to learn data cleaning, machine learning models and predictions in 30 days.",
+    status: "coming",
+    days: 30,
+    level: "Beginners to Advanced",
+    duration: "",
+    slug: "machine-learning",
+    url: "",
+    author: {
+      firstName: "Asabeneh",
+      lastName: "Yetayeh",
+    },
+  },
+];
+
+const Challenge = ({
+  challenge: {
+    name,
+    description,
+    status,
+    days,
+    level,
+    duration,
+    author: { firstName, lastName },
+  },
+}) => (
+  <div>
+    <h1>{name}</h1>
+    <p>{level}</p>
+    <p>
+      Author: {firstName} {lastName}
+    </p>
+    {duration && (
+      <>
+        {" "}
+        <small>{duration}</small> <br />
+      </>
+    )}
+    <small>Number of days: {days}</small>
+
+    <p>{description}</p>
   </div>
 );
-// A button component
-const Button = ({ text, onClick, style }) => (
-  <button style={style} onClick={onClick}>
-    {text}
-  </button>
-);
-// CSS styles in JavaScript Object
-const buttonStyle = {
-  backgroundColor: "#61dbfb",
-  padding: 10,
-  border: "none",
-  borderRadius: 5,
-  margin: 3,
-  cursor: "pointer",
-  fontSize: 18,
-  color: "white",
-};
-// HexaColor component
-const HexaColor = () => {
-  let str = "0123456788abcdef";
-  let color = "";
-  for (let i = 0; i < 6; i++) {
-    let index = Math.floor(Math.random() * str.length);
-    color += str[index];
-  }
-  return "#" + color;
-};
-// Country component
-const Country = ({ country: { name, city } }) => {
+
+const Challenges = (props) => {
+  const path = props.location.pathname;
+  const slug = path.split("/").slice(path.split("/").length - 1)[0];
+  const challenge = challenges.find((challenge) => challenge.slug === slug);
   return (
     <div>
-      <h4>{name}</h4>
-      <small>City: {city}</small>
-    </div>
-  );
-};
-// countries component
-const Countries = ({ countries }) => {
-  const countryList = countries.map((country) => <Country country={country} />);
-  return <div>{countryList}</div>;
-};
-
-// main component
-const Main = ({
-  user,
-  techs,
-  greetPeople,
-  handleTime,
-  yearBorn,
-  countries,
-}) => (
-  <main>
-    <div className="main-wrapper">
-      <p>
-        Prerequisite to get started
-        <strong>
-          <em>react.js</em>
-        </strong>
-        :
-      </p>
+      <h2>30 Days Of React Challenges</h2>
       <ul>
-        <TechList techs={techs} />
+        {challenges.map(({ name, slug }) => (
+          <li>
+            <NavLink to={`/challenges/${slug}`}>{name}</NavLink>
+          </li>
+        ))}
       </ul>
-      <div>
-        <h3>Countries List</h3>
-        <Countries countries={countries} />
-      </div>
-      <UserCard user={user} />
-      <PersonAge yearBorn={yearBorn} />
-      <Button text="Show Time" onClick={handleTime} style={buttonStyle} />
-      <Button text="Greet Plople" onClick={greetPeople} style={buttonStyle} />
-      <Button
-        text="Hi!"
-        onClick={() => alert("Well, Hello")}
-        style={buttonStyle}
-      />
-      <strong>
-        <p>
-          {" "}
-          <HexaColor />
-        </p>
-      </strong>{" "}
-    </div>
-  </main>
-);
-// footer component
-const Footer = (copyRight) => (
-  <footer>
-    <div className="footer-wrapper">
-      <p>Copyright {copyRight.getFullYear}</p>
-    </div>
-  </footer>
-);
-
-// The App, or the parent or the container component
-// Functional Component
-const App = () => {
-  const data = {
-    welcome: "Welcome to 30 Days Of React",
-    title: "Getting Started React",
-    subtitle: "JavaScript Library",
-    author: {
-      firstName: "Shams",
-      lastName: "C",
-    },
-    date: new Date(),
-    // copyRight: "Copyright 2020",
-  };
-
-  const yearBorn = 1995;
-
-  const date = new Date();
-
-  const techs = ["HTML", "CSS", "JavaScript"];
-
-  const countries = [
-    { name: "Finland", city: "Helsinki" },
-    { name: "Sweden", city: "Stockholm" },
-    { name: "Denmark", city: "Copenhagen" },
-    { name: "Norway", city: "Oslo" },
-    { name: "Iceland", city: "Reykjavík" },
-  ];
-
-  // copying the author from data object to user variable using spread operator
-  const user = { ...data.author, image: image };
-
-  const greetPeople = () => {
-    alert("Welcome to 30 Days Of React Challenge, 2020");
-  };
-
-  const handleTime = () => {
-    alert(showDate(new Date()));
-  };
-  return (
-    <div className="app">
-      <Header data={data} />
-      <Main
-        user={user}
-        techs={techs}
-        handleTime={handleTime}
-        greetPeople={greetPeople}
-        yearBorn={yearBorn}
-        countries={countries}
-      />
-      <Footer copyRight={date} />
+      <Switch>
+        <Route
+          exact
+          path={"/challenges"}
+          component={() => <h3>Choose any of the challenges</h3>}
+        />
+        <Route
+          path={path}
+          component={(props) => <Challenge challenge={challenge} />}
+        />
+      </Switch>
     </div>
   );
 };
+const Jenkins = (props) => <h1>Welcome Jenkins</h1>;
+const NotFound = (props) => <h1>The page you are looking for is not found</h1>;
+
+const Navbar = ({ username }) => (
+  <ul>
+    <li>
+      <NavLink to="/">Home</NavLink>
+    </li>
+    <li>
+      <NavLink to="/about">About</NavLink>
+    </li>
+    <li>
+      <NavLink to="/contact">Contact</NavLink>
+    </li>
+    <li>
+      <NavLink to={`/user/${username}`}>User</NavLink>
+    </li>
+    <li>
+      <NavLink to="/challenges">Challenges</NavLink>
+    </li>
+    <li>
+      <NavLink to="/jenkins">Jenkins</NavLink>
+    </li>
+  </ul>
+);
+
+const User = ({ match, isLoggedIn, handleLogin }) => {
+  const username = match.params.username;
+  return (
+    <div>
+      {isLoggedIn ? (
+        <>
+          <h1>Welcome {username} to the challenge</h1>
+          <small>Now, you can navigate through all the challenges</small> <br />
+        </>
+      ) : (
+        <p>Please login in to access the challenges </p>
+      )}
+      <button onClick={handleLogin}>{isLoggedIn ? "Logout" : "Login"}</button>
+    </div>
+  );
+};
+const Welcome = ({ handleLogin, isLoggedIn }) => {
+  return (
+    <div>
+      {isLoggedIn ? "Welcome to the challenge" : <p>Please login in </p>}
+      <button onClick={handleLogin}>{isLoggedIn ? "Logout" : "Login"}</button>
+    </div>
+  );
+};
+
+class App extends Component {
+  state = { isLoggedIn: false, firstName: "sham" };
+  handleLogin = () => {
+    this.setState({
+      isLoggedIn: !this.state.isLoggedIn,
+    });
+  };
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Navbar username={this.state.firstName} />
+
+          <Switch>
+            {/* <Route component={NotFound} /> */}
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route
+              path="/user/:username"
+              component={(props) => (
+                <User
+                  {...props}
+                  isLoggedIn={this.state.isLoggedIn}
+                  handleLogin={this.handleLogin}
+                />
+              )}
+            />
+            <Route
+              path="/login"
+              component={(props) => (
+                <Welcome
+                  {...props}
+                  isLoggedIn={this.state.isLoggedIn}
+                  handleLogin={this.handleLogin}
+                />
+              )}
+            />
+            <Route
+              path="/challenges"
+              component={(props) => {
+                return this.state.isLoggedIn ? (
+                  <Challenges {...props} />
+                ) : (
+                  <Redirect to="/user/sham" />
+                );
+              }}
+            />
+            <Route path="/jenkins" component={Jenkins} />
+            <Route path="/" component={Home} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
+
 const rootElement = document.getElementById("root");
-// we render the JSX element using the ReactDOM package
 ReactDOM.render(<App />, rootElement);
