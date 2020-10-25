@@ -1,19 +1,96 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
+import "./index.css";
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Switch,
   Redirect,
-  //   Prompt,
+  Prompt,
   //   withRouter,
 } from "react-router-dom";
 
 const Home = (props) => <h1>Welcome Home!</h1>;
 const About = (props) => <h1>About Us</h1>;
 const Contact = (props) => <h1>Contact Us</h1>;
+const Country = ({ country: { name, flag, population } }) => {
+  return (
+    <div style={countryWrapper} className="countryWrapper">
+      <div style={countryStyles} className="country">
+        <div style={countryFlagStyle} className="country_flag">
+          <img style={img} src={flag} alt={name} />
+        </div>
+        <h3 style={countryNameStyle} className="country_name">
+          {name.toUpperCase()}
+        </h3>
+        <div class="country_text">
+          <p>
+            <span>Population: </span>
+            {population}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
+const navWrapper = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-around",
+};
+
+const navlink = {
+  position: "absolute",
+  fontSize: "1rem",
+  margin: "auto 1.5rem",
+  color: "#333",
+};
+const countryWrapper = {
+  background: "rgb(240, 240, 240)",
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "space-around",
+  justifyItems: "center",
+  margin: "1rem 0 3rem 0",
+  padding: "1rem",
+};
+const countryNameStyle = {
+  fontSize: "1.6rem",
+  color: "#ffa500",
+  letterSpacin: ".075rem",
+  marginBottom: "1rem",
+  fontWeight: "bolder",
+};
+const countryStyles = {
+  maxWidth: "25rem",
+  minWidth: "25rem",
+  textAlign: "center",
+  margin: "0.5rem",
+  padding: "2rem",
+  borderRadius: "0.2rem",
+  background: "white",
+};
+
+const countryFlagStyle = {
+  height: "12rem",
+  width: "20rem",
+  textAlign: "center",
+  margin: "auto",
+};
+
+const img = {
+  display: "block",
+  margin: "auto",
+  maxWidth: "75%",
+  maxHeight: "75%",
+  minWidth: "75%",
+  minHeight: "75%",
+  borderRadius: "0.3rem",
+  boxShadow: "0 0 0.6rem 0.2rem rgb(241, 225, 225)",
+};
 const challenges = [
   {
     name: "30 Days Of Python",
@@ -185,24 +262,41 @@ const Jenkins = (props) => <h1>Welcome Jenkins</h1>;
 const NotFound = (props) => <h1>The page you are looking for is not found</h1>;
 
 const Navbar = ({ username }) => (
-  <ul>
+  <ul style={navWrapper}>
     <li>
-      <NavLink to="/">Home</NavLink>
+      <NavLink style={navlink} to="/">
+        Home
+      </NavLink>
     </li>
     <li>
-      <NavLink to="/about">About</NavLink>
+      <NavLink style={navlink} to="/about">
+        About
+      </NavLink>
     </li>
     <li>
-      <NavLink to="/contact">Contact</NavLink>
+      <NavLink style={navlink} to="/contact">
+        Contact
+      </NavLink>
     </li>
     <li>
-      <NavLink to={`/user/${username}`}>User</NavLink>
+      <NavLink style={navlink} to={`/user/${username}`}>
+        User
+      </NavLink>
     </li>
     <li>
-      <NavLink to="/challenges">Challenges</NavLink>
+      <NavLink style={navlink} to="/challenges">
+        Challenges
+      </NavLink>
     </li>
     <li>
-      <NavLink to="/jenkins">Jenkins</NavLink>
+      <NavLink style={navlink} to="/jenkins">
+        Jenkins
+      </NavLink>
+    </li>
+    <li>
+      <NavLink style={navlink} to="/country">
+        Country Data
+      </NavLink>
     </li>
   </ul>
 );
@@ -233,7 +327,25 @@ const Welcome = ({ handleLogin, isLoggedIn }) => {
 };
 
 class App extends Component {
-  state = { isLoggedIn: false, firstName: "sham" };
+  // state = { isLoggedIn: false, firstName: "sham" };
+  state = {
+    data: [],
+  };
+  componentDidMount() {
+    this.fetchCountryData();
+  }
+  fetchCountryData = async () => {
+    const url = "https://restcountries.eu/rest/v2/all";
+    try {
+      const response = await axios.get(url);
+      const data = await response.data;
+      this.setState({
+        data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   handleLogin = () => {
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
@@ -244,6 +356,14 @@ class App extends Component {
       <Router>
         <div className="App">
           <Navbar username={this.state.firstName} />
+
+          <Prompt
+            message={({ pathname }) => {
+              return this.state.isLoggedIn && pathname.includes("/user/sham")
+                ? "Are you sure you want to logout?"
+                : true;
+            }}
+          />
 
           <Switch>
             {/* <Route component={NotFound} /> */}
@@ -280,6 +400,14 @@ class App extends Component {
               }}
             />
             <Route path="/jenkins" component={Jenkins} />
+            <Route
+              path="/country"
+              component={(props) => {
+                return this.state.data.map((country) => (
+                  <Country country={country} />
+                ));
+              }}
+            />
             <Route path="/" component={Home} />
             <Route component={NotFound} />
           </Switch>
