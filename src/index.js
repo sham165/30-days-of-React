@@ -522,7 +522,15 @@ class App extends Component {
                 ));
               }}
             /> */}
-            <Route path="/country" component={Country} />
+            <Route
+              path="/country"
+              component={(props) => {
+                return this.state.countryData.map((country) => (
+                  <Country country={country} />
+                ));
+              }}
+            />
+            {/* // <Route path="/country" component={Country} /> */}
             <Route path="/" component={Home} />
             <Route component={NotFound} />
           </Switch>
