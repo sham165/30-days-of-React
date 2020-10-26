@@ -12,6 +12,85 @@ import {
   //   withRouter,
 } from "react-router-dom";
 
+const navWrapper = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-around",
+};
+
+const navlink = {
+  fontSize: "1rem",
+  margin: ".1rem",
+  color: "#333",
+};
+const jobWrapper = {
+  background: "rgb(240, 240, 240)",
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "space-around",
+  justifyItems: "center",
+  margin: "1rem 0 3rem 0",
+  padding: "1rem",
+};
+const jobNameStyle = {
+  fontSize: "1.6rem",
+  color: "#ffa500",
+  letterSpacin: ".075rem",
+  marginBottom: "1rem",
+  fontWeight: "bolder",
+};
+const countryWrapper = {
+  background: "rgb(240, 240, 240)",
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "space-around",
+  justifyItems: "center",
+  margin: "1rem 0 3rem 0",
+  padding: "1rem",
+};
+const countryNameStyle = {
+  fontSize: "1.6rem",
+  color: "#ffa500",
+  letterSpacin: ".075rem",
+  marginBottom: "1rem",
+  fontWeight: "bolder",
+};
+const jobStyles = {
+  maxWidth: "25rem",
+  minWidth: "25rem",
+  textAlign: "center",
+  margin: "0.5rem",
+  padding: "2rem",
+  borderRadius: "0.2rem",
+  background: "white",
+};
+const countryStyles = {
+  maxWidth: "25rem",
+  minWidth: "25rem",
+  textAlign: "center",
+  margin: "0.5rem",
+  padding: "2rem",
+  borderRadius: "0.2rem",
+  background: "white",
+};
+const countryFlagStyle = {
+  height: "12rem",
+  width: "20rem",
+  textAlign: "center",
+  margin: "auto",
+};
+const img = {
+  display: "block",
+  margin: "auto",
+  maxWidth: "75%",
+  maxHeight: "75%",
+  minWidth: "75%",
+  minHeight: "75%",
+  borderRadius: "0.3rem",
+  boxShadow: "0 0 0.6rem 0.2rem rgb(241, 225, 225)",
+};
+
+//Components
 const Home = (props) => <h1>Welcome Home!</h1>;
 const About = (props) => <h1>About Us</h1>;
 const Contact = (props) => <h1>Contact Us</h1>;
@@ -35,62 +114,54 @@ const Country = ({ country: { name, flag, population } }) => {
     </div>
   );
 };
+const Jenkins = ({ job: { name, color } }) => {
+  return (
+    <div style={jobWrapper} className="jobWrapper">
+      <div style={jobStyles} className="job">
+        <h3 style={jobNameStyle} className="job_name">
+          {name}
+        </h3>
 
-const navWrapper = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-around",
-};
-
-const navlink = {
-  position: "absolute",
-  fontSize: "1rem",
-  margin: "auto 1.5rem",
-  color: "#333",
-};
-const countryWrapper = {
-  background: "rgb(240, 240, 240)",
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "space-around",
-  justifyItems: "center",
-  margin: "1rem 0 3rem 0",
-  padding: "1rem",
-};
-const countryNameStyle = {
-  fontSize: "1.6rem",
-  color: "#ffa500",
-  letterSpacin: ".075rem",
-  marginBottom: "1rem",
-  fontWeight: "bolder",
-};
-const countryStyles = {
-  maxWidth: "25rem",
-  minWidth: "25rem",
-  textAlign: "center",
-  margin: "0.5rem",
-  padding: "2rem",
-  borderRadius: "0.2rem",
-  background: "white",
+        <div className="job_status">
+          <p>
+            <span>{color}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const countryFlagStyle = {
-  height: "12rem",
-  width: "20rem",
-  textAlign: "center",
-  margin: "auto",
-};
+// const BuildDetails = ({
+//   job_details: {
+//     // jobNumber,
+//     duration,
+//     failCount,
+//     passCount,
+//     skipCount,
+//     tests: { errorDetails, status, age },
+//   },
+// }) => {
+//   return (
+//     <div className="buildDetailsWrapper">
+//       <div className="buildDetails">
+//         <div>Job Name</div>
+//         {/* <p>{jobNumber}</p> */}
+//         <p>{duration}</p>
+//         <p>{failCount}</p>
+//         <p>{passCount}</p>
+//         <p>{skipCount}</p>
 
-const img = {
-  display: "block",
-  margin: "auto",
-  maxWidth: "75%",
-  maxHeight: "75%",
-  minWidth: "75%",
-  minHeight: "75%",
-  borderRadius: "0.3rem",
-  boxShadow: "0 0 0.6rem 0.2rem rgb(241, 225, 225)",
-};
+//         {/* <div>
+//           <p>{errorDetails}</p>
+//           <p>{status}</p>
+//           <p>{age}</p>
+//         </div> */}
+//       </div>
+//     </div>
+//   );
+// };
+
 const challenges = [
   {
     name: "30 Days Of Python",
@@ -258,7 +329,6 @@ const Challenges = (props) => {
     </div>
   );
 };
-const Jenkins = (props) => <h1>Welcome Jenkins</h1>;
 const NotFound = (props) => <h1>The page you are looking for is not found</h1>;
 
 const Navbar = ({ username }) => (
@@ -293,9 +363,14 @@ const Navbar = ({ username }) => (
         Jenkins
       </NavLink>
     </li>
+    {/* <li>
+      <NavLink style={navlink} to="/details">
+        Build Details
+      </NavLink>
+    </li> */}
     <li>
       <NavLink style={navlink} to="/country">
-        Country Data
+        Countries
       </NavLink>
     </li>
   </ul>
@@ -327,30 +402,62 @@ const Welcome = ({ handleLogin, isLoggedIn }) => {
 };
 
 class App extends Component {
-  // state = { isLoggedIn: false, firstName: "sham" };
   state = {
-    data: [],
+    isLoggedIn: false,
+    firstName: "sham",
+    jenkinsData: [],
+    // buildData: [],
+    countryData: [],
   };
   componentDidMount() {
     this.fetchCountryData();
+    this.fetchJenkinsData();
+    // this.fetchJobDetailsData();
   }
   fetchCountryData = async () => {
     const url = "https://restcountries.eu/rest/v2/all";
     try {
       const response = await axios.get(url);
-      const data = await response.data;
+      const countryData = await response.data;
       this.setState({
-        data,
+        countryData,
       });
     } catch (error) {
       console.log(error);
     }
   };
+  fetchJenkinsData = async () => {
+    const url = "http://localhost:3001/api/jenkins/jobs";
+    try {
+      const response = await axios.get(url);
+      const jenkinsData = await response.data;
+      this.setState({
+        jenkinsData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // fetchJobDetailsData = async () => {
+  //   const url = "http://localhost:3001/api/jenkins/latest";
+  //   try {
+  //     const response = await axios.get(url);
+  //     const buildData = await response.data;
+  //     // console.log(buildData);
+  //     this.setState({
+  //       buildData,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   handleLogin = () => {
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
     });
   };
+
   render() {
     return (
       <Router>
@@ -399,15 +506,23 @@ class App extends Component {
                 );
               }}
             />
-            <Route path="/jenkins" component={Jenkins} />
             <Route
-              path="/country"
+              path="/jenkins"
               component={(props) => {
-                return this.state.data.map((country) => (
-                  <Country country={country} />
+                return this.state.jenkinsData.map((job) => (
+                  <Jenkins job={job} />
                 ));
               }}
             />
+            {/* <Route
+              path="/details"
+              component={(props) => {
+                return this.state.buildData.map((build) => (
+                  <BuildDetails build={build} />
+                ));
+              }}
+            /> */}
+            <Route path="/country" component={Country} />
             <Route path="/" component={Home} />
             <Route component={NotFound} />
           </Switch>
